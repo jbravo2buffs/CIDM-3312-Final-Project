@@ -1,0 +1,62 @@
+@page "{id:int}"
+@model CIDM_3312_Final_Project.Pages.Games.EditModel
+@{
+    ViewData["Title"] = "Edit Game";
+}
+
+<h1>Edit Game</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-5">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Game.GameId" />
+
+            <div class="form-group mb-3">
+                <label asp-for="Game.Title" class="control-label"></label>
+                <input asp-for="Game.Title" class="form-control" />
+                <span asp-validation-for="Game.Title" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="Game.PlatformId" class="control-label"></label>
+                <select asp-for="Game.PlatformId" asp-items="Model.PlatformOptions" class="form-control"></select>
+                <span asp-validation-for="Game.PlatformId" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="Game.Genre" class="control-label"></label>
+                <input asp-for="Game.Genre" class="form-control" />
+                <span asp-validation-for="Game.Genre" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="Game.ReleaseYear" class="control-label"></label>
+                <input asp-for="Game.ReleaseYear" class="form-control" />
+                <span asp-validation-for="Game.ReleaseYear" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="Game.Rating" class="control-label"></label>
+                <input asp-for="Game.Rating" class="form-control" />
+                <span asp-validation-for="Game.Rating" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="Game.Status" class="control-label"></label>
+                <input asp-for="Game.Status" class="form-control" />
+                <span asp-validation-for="Game.Status" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+                <a asp-page="Index" class="btn btn-secondary">Back to List</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

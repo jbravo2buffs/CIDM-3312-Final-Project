@@ -1,0 +1,42 @@
+@page
+@model CIDM_3312_Final_Project.Pages.Reviews.IndexModel
+@{
+    ViewData["Title"] = "Reviews";
+}
+
+<h1>Reviews</h1>
+
+<p>
+    <a asp-page="Create" class="btn btn-primary">Add New Review</a>
+</p>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Game</th>
+            <th>Platform</th>
+            <th>Reviewer</th>
+            <th>Score</th>
+            <th>Date</th>
+            <th>Comment</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var review in Model.Reviews)
+        {
+            <tr>
+                <td>@review.Game?.Title</td>
+                <td>@review.Game?.Platform?.Name</td>
+                <td>@review.ReviewerName</td>
+                <td>@review.Score/10</td>
+                <td>@review.DatePosted.ToShortDateString()</td>
+                <td>@review.Comment</td>
+                <td>
+                    <a asp-page="Edit" asp-route-id="@review.ReviewId">Edit</a> |
+                    <a asp-page="Delete" asp-route-id="@review.ReviewId">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

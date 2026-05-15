@@ -1,0 +1,55 @@
+@page
+@model CIDM_3312_Final_Project.Pages.Reviews.CreateModel
+@{
+    ViewData["Title"] = "Add New Review";
+}
+
+<h1>Add New Review</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-5">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group mb-3">
+                <label asp-for="Review.GameId" class="control-label"></label>
+                <select asp-for="Review.GameId" asp-items="Model.GameOptions" class="form-control"></select>
+                <span asp-validation-for="Review.GameId" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="Review.ReviewerName" class="control-label"></label>
+                <input asp-for="Review.ReviewerName" class="form-control" />
+                <span asp-validation-for="Review.ReviewerName" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="Review.Score" class="control-label"></label>
+                <input asp-for="Review.Score" class="form-control" />
+                <span asp-validation-for="Review.Score" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="Review.DatePosted" class="control-label"></label>
+                <input asp-for="Review.DatePosted" class="form-control" />
+                <span asp-validation-for="Review.DatePosted" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="Review.Comment" class="control-label"></label>
+                <textarea asp-for="Review.Comment" class="form-control" rows="3"></textarea>
+                <span asp-validation-for="Review.Comment" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+                <a asp-page="Index" class="btn btn-secondary">Back to List</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

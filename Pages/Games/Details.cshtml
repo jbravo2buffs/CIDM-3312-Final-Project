@@ -1,0 +1,114 @@
+@page "{id:int}"
+@model CIDM_3312_Final_Project.Pages.Games.DetailsModel
+@{
+    ViewData["Title"] = "Game Details";
+}
+
+<h1>Game Details</h1>
+
+<div>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Game.Title)</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(model => model.Game.Title)</dd>
+
+        <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Game.Platform)</dt>
+        <dd class="col-sm-9">@Model.Game.Platform?.Name</dd>
+
+        <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Game.Genre)</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(model => model.Game.Genre)</dd>
+
+        <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Game.ReleaseYear)</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(model => model.Game.ReleaseYear)</dd>
+
+        <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Game.Rating)</dt>
+        <dd class="col-sm-9">@Model.Game.Rating.ToString("0.0")</dd>
+
+        <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Game.Status)</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(model => model.Game.Status)</dd>
+    </dl>
+</div>
+
+<div class="mb-4">
+    <a asp-page="Edit" asp-route-id="@Model.Game.GameId" class="btn btn-warning">Edit</a>
+    <a asp-page="Index" class="btn btn-secondary">Back to List</a>
+</div>
+
+<h2>Reviews for this Game</h2>
+
+@if (Model.Game.Reviews.Count > 0)
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Reviewer</th>
+                <th>Score</th>
+                <th>Date</th>
+                <th>Comment</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var review in Model.Game.Reviews)
+            {
+                <tr>
+                    <td>@review.ReviewerName</td>
+                    <td>@review.Score/10</td>
+                    <td>@review.DatePosted.ToShortDateString()</td>
+                    <td>@review.Comment</td>
+                    <td>
+                        <a asp-page="/Reviews/Edit" asp-route-id="@review.ReviewId">Edit</a> |
+                        <a asp-page="/Reviews/Delete" asp-route-id="@review.ReviewId">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No reviews yet.</p>
+}
+
+<h2>Add Review</h2>
+
+<div class="row">
+    <div class="col-md-6">
+        <form method="post" asp-page-handler="AddReview">
+            <input type="hidden" asp-for="NewReview.GameId" />
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group mb-3">
+                <label asp-for="NewReview.ReviewerName" class="control-label"></label>
+                <input asp-for="NewReview.ReviewerName" class="form-control" />
+                <span asp-validation-for="NewReview.ReviewerName" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="NewReview.Score" class="control-label"></label>
+                <input asp-for="NewReview.Score" class="form-control" />
+                <span asp-validation-for="NewReview.Score" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="NewReview.DatePosted" class="control-label"></label>
+                <input asp-for="NewReview.DatePosted" class="form-control" />
+                <span asp-validation-for="NewReview.DatePosted" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="NewReview.Comment" class="control-label"></label>
+                <textarea asp-for="NewReview.Comment" class="form-control" rows="3"></textarea>
+                <span asp-validation-for="NewReview.Comment" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Add Review" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

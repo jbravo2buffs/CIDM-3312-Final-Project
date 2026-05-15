@@ -1,0 +1,95 @@
+@page
+@model CIDM_3312_Final_Project.Pages.Games.IndexModel
+@{
+    ViewData["Title"] = "Games";
+}
+
+<h1>Games</h1>
+
+<p>
+    <a asp-page="Create" class="btn btn-primary">Add New Game</a>
+</p>
+
+<form method="get" class="row mb-3">
+    <div class="col-md-5">
+        <label asp-for="SearchString" class="form-label">Search</label>
+        <input asp-for="SearchString" class="form-control" placeholder="Title, genre, status, or platform" />
+    </div>
+    <div class="col-md-4">
+        <label asp-for="SortOrder" class="form-label">Sort</label>
+        <select asp-for="SortOrder" class="form-select">
+            <option value="title_asc">Title A-Z</option>
+            <option value="title_desc">Title Z-A</option>
+            <option value="rating_desc">Rating High-Low</option>
+            <option value="rating_asc">Rating Low-High</option>
+            <option value="year_desc">Release Year Newest</option>
+            <option value="year_asc">Release Year Oldest</option>
+            <option value="status_asc">Status A-Z</option>
+            <option value="status_desc">Status Z-A</option>
+        </select>
+    </div>
+    <div class="col-md-3">
+        <label class="form-label">&nbsp;</label>
+        <div>
+            <input type="submit" value="Apply" class="btn btn-primary" />
+            <a asp-page="Index" class="btn btn-secondary">Reset</a>
+        </div>
+    </div>
+</form>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Platform</th>
+            <th>Genre</th>
+            <th>Year</th>
+            <th>Rating</th>
+            <th>Status</th>
+            <th>Avg Review</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var game in Model.Games)
+        {
+            <tr>
+                <td>@game.Title</td>
+                <td>@game.Platform?.Name</td>
+                <td>@game.Genre</td>
+                <td>@game.ReleaseYear</td>
+                <td>@game.Rating.ToString("0.0")</td>
+                <td>@game.Status</td>
+                <td>
+                    @if (game.Reviews.Count > 0)
+                    {
+                        @game.Reviews.Average(r => r.Score).ToString("0.0")
+                    }
+                    else
+                    {
+                        <span>No reviews</span>
+                    }
+                </td>
+                <td>
+                    <a asp-page="Details" asp-route-id="@game.GameId">Details</a> |
+                    <a asp-page="Edit" asp-route-id="@game.GameId">Edit</a> |
+                    <a asp-page="Delete" asp-route-id="@game.GameId">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<nav>
+    <ul class="pagination">
+        <li class="page-item @(Model.HasPreviousPage ? "" : "disabled")">
+            <a class="page-link" asp-page="Index" asp-route-pageNumber="@(Model.PageNumber - 1)" asp-route-searchString="@Model.SearchString" asp-route-sortOrder="@Model.SortOrder">Previous</a>
+        </li>
+        <li class="page-item disabled">
+            <span class="page-link">Page @Model.PageNumber of @Model.TotalPages</span>
+        </li>
+        <li class="page-item @(Model.HasNextPage ? "" : "disabled")">
+            <a class="page-link" asp-page="Index" asp-route-pageNumber="@(Model.PageNumber + 1)" asp-route-searchString="@Model.SearchString" asp-route-sortOrder="@Model.SortOrder">Next</a>
+        </li>
+    </ul>
+</nav>

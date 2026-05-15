@@ -1,0 +1,115 @@
+@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Bravo Game Vault";
+}
+
+<h1>Bravo Game Vault</h1>
+
+<p>
+    <a asp-page="/Games/Index" class="btn btn-primary">Browse Games</a>
+    <a asp-page="/Platforms/Index" class="btn btn-secondary">View Platforms</a>
+</p>
+
+<div class="row mb-4">
+    <div class="col-md-3">
+        <div class="card mb-3">
+            <div class="card-body">
+                <i class="bi bi-collection-play"></i>
+                <h2 class="h5">Games</h2>
+                <p>@Model.GameCount</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card mb-3">
+            <div class="card-body">
+                <i class="bi bi-display"></i>
+                <h2 class="h5">Platforms</h2>
+                <p>@Model.PlatformCount</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card mb-3">
+            <div class="card-body">
+                <i class="bi bi-chat-square-text"></i>
+                <h2 class="h5">Reviews</h2>
+                <p>@Model.ReviewCount</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card mb-3">
+            <div class="card-body">
+                <i class="bi bi-star-fill"></i>
+                <h2 class="h5">Avg Score</h2>
+                <p>@Model.AverageScore.ToString("0.0")</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="vaultCarousel" class="carousel slide mb-4" data-bs-ride="false">
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <div class="carousel-panel bg-primary text-white">
+                <i class="bi bi-controller"></i>
+                <h3>Track the Backlog</h3>
+                <p>Keep owned, playing, finished, and wishlist games organized.</p>
+            </div>
+        </div>
+        <div class="carousel-item">
+            <div class="carousel-panel bg-success text-white">
+                <i class="bi bi-star-fill"></i>
+                <h3>Review Favorites</h3>
+                <p>Add scores and comments for games in the vault.</p>
+            </div>
+        </div>
+        <div class="carousel-item">
+            <div class="carousel-panel bg-danger text-white">
+                <i class="bi bi-search"></i>
+                <h3>Find Games Fast</h3>
+                <p>Search, sort, and page through the game list.</p>
+            </div>
+        </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#vaultCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#vaultCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="card mb-3">
+            <div class="card-body">
+                <h2 class="h5">Games</h2>
+                <p>Search, sort, page, add, edit, view, and delete games.</p>
+                <a asp-page="/Games/Index" class="btn btn-primary">Open Games</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card mb-3">
+            <div class="card-body">
+                <h2 class="h5">Platforms</h2>
+                <p>View platforms and see which games belong to each one.</p>
+                <a asp-page="/Platforms/Index" class="btn btn-primary">Open Platforms</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card mb-3">
+            <div class="card-body">
+                <h2 class="h5">Reviews</h2>
+                <p>Create, update, and delete reviews for games.</p>
+                <a asp-page="/Reviews/Index" class="btn btn-primary">Open Reviews</a>
+            </div>
+        </div>
+    </div>
+</div>

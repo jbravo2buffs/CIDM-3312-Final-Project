@@ -1,0 +1,39 @@
+@page
+@model CIDM_3312_Final_Project.Pages.Platforms.IndexModel
+@{
+    ViewData["Title"] = "Platforms";
+}
+
+<h1>Platforms</h1>
+
+<p>
+    <a asp-page="Create" class="btn btn-primary">Add New Platform</a>
+</p>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Company</th>
+            <th>Console Type</th>
+            <th>Games</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var platform in Model.Platforms)
+        {
+            <tr>
+                <td>@platform.Name</td>
+                <td>@platform.Company</td>
+                <td>@platform.ConsoleType</td>
+                <td>@platform.Games.Count</td>
+                <td>
+                    <a asp-page="Details" asp-route-id="@platform.PlatformId">Details</a> |
+                    <a asp-page="Edit" asp-route-id="@platform.PlatformId">Edit</a> |
+                    <a asp-page="Delete" asp-route-id="@platform.PlatformId">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

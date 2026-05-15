@@ -1,0 +1,54 @@
+@page "{id:int}"
+@model CIDM_3312_Final_Project.Pages.Platforms.DetailsModel
+@{
+    ViewData["Title"] = "Platform Details";
+}
+
+<h1>Platform Details</h1>
+
+<div>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Platform.Name)</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(model => model.Platform.Name)</dd>
+
+        <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Platform.Company)</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(model => model.Platform.Company)</dd>
+
+        <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Platform.ConsoleType)</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(model => model.Platform.ConsoleType)</dd>
+    </dl>
+</div>
+
+<div class="mb-4">
+    <a asp-page="Edit" asp-route-id="@Model.Platform.PlatformId" class="btn btn-warning">Edit</a>
+    <a asp-page="Index" class="btn btn-secondary">Back to List</a>
+</div>
+
+<h2>Games on this Platform</h2>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Genre</th>
+            <th>Year</th>
+            <th>Status</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var game in Model.Platform.Games)
+        {
+            <tr>
+                <td>@game.Title</td>
+                <td>@game.Genre</td>
+                <td>@game.ReleaseYear</td>
+                <td>@game.Status</td>
+                <td>
+                    <a asp-page="/Games/Details" asp-route-id="@game.GameId">Game Reviews</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
